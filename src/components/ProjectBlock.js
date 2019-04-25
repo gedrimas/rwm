@@ -10,15 +10,11 @@ margin: 20px;
 
 export default function ProjectBlock(props) {
   const { projects } = props
-  console.log('ProjectBlock: ', projects)
-
-  const allProjects = projects.map(itm => <StyledProjectBlock><h2>{itm.project}</h2></StyledProjectBlock>)
+  const allProjects = projects.map(itm => <StyledProjectBlock><h2>{itm.project_title}</h2></StyledProjectBlock>)
   return (
     <React.Fragment>
       {
-        
         allProjects
-     
       }
     </React.Fragment>
       

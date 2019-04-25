@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom'
 import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
 import App from './App'
 import projects from './reducers'
 
 
 let store = createStore(
   projects,
-  composeWithDevTools()
+  composeWithDevTools(applyMiddleware(thunk))
 )
 
 ReactDOM.render(

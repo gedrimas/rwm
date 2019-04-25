@@ -5,12 +5,15 @@ const projects = (state = [], action) => {
         ...state,
         {
           id: action.id,
-          project: action.project,
-          disc: action.disc,
+          project_title: action.project_title,
+          description: action.description,
           link: action.link,
-          file: action.file,
         }
       ]
+    case 'FETCH_ALL':
+      return [
+        ...state, ...action.data
+      ]  
     default: state  
   }
 }

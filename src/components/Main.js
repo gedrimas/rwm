@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import ModalForm from './ModalForm'
 import ProjectBlock from './ProjectBlock'
+import { generalFetch } from '../actions'
 
 const MainWrapper = styled.div`
 display: flex;
@@ -19,7 +20,13 @@ width: 100px;
 class MainPage extends Component {
 
   state = {
-    isModalFormShow: false
+    isModalFormShow: false,
+    posts: []
+  }
+
+  componentDidMount() {
+    const { getData } = this.props
+    getData()
   }
   
   showModalForm = () => {
@@ -29,7 +36,7 @@ class MainPage extends Component {
   }
 
   render() {
-    const { isModalFormShow } = this.state
+    const { isModalFormShow, posts } = this.state
     const { projects } = this.props
     return(
         <MainWrapper>
@@ -41,7 +48,7 @@ class MainPage extends Component {
             {
               isModalFormShow && <ModalForm />
             }
-            <h1>BLOK BLOK BLOK</h1>
+            <h1>{posts}</h1>
               {
                 projects &&
                 <ProjectBlock projects={projects} />
@@ -57,6 +64,12 @@ const mapStateToProps = (state) => {
   }
 }
 
-const Main = connect(mapStateToProps)(MainPage)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getData: () => dispatch(generalFetch())
+  }
+}
+
+const Main = connect(mapStateToProps, mapDispatchToProps)(MainPage)
 
 export default Main

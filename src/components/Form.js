@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { addProject } from '../actions'
+import { addProject, sendProject } from '../actions'
 
 const StyledForm = styled.form`
 display: flex;
@@ -11,13 +11,10 @@ align-items: center;
 
 class AddForm extends Component {
   state = {
-    project: '',
-    disc: '',
+    project_title: '',
+    description: '',
     link: '',
-    file: '',
   }
-
-  fileInput = React.createRef() 
 
   inputChange = (e) => {
     this.setState({
@@ -26,10 +23,19 @@ class AddForm extends Component {
   }
 
   submit = (e) => {
-    const { add } = this.props
+    const { add, sendToJSONserver } = this.props
 
     e.preventDefault()
-    add(this.state)
+    //add(this.state)
+    const formElemnt = document.querySelector('form')
+    const formData = new FormData(formElemnt)
+    
+   
+    let object = {};
+    formData.forEach((value, key) => {object[key] = value});
+    const jsonFromData = JSON.stringify(object);
+    sendToJSONserver(jsonFromData)
+
   }
 
   getstate = () => {
@@ -38,26 +44,25 @@ class AddForm extends Component {
 
   render() {
     const {
-      project,
-      disc,
+      project_title,
+      description,
       link,
-      file,
     } = this.state
     return (
       <StyledForm onSubmit={this.submit}>
         <label>
           Название проекта:<br />
           <input
-            name="project"
+            name="project_title"
             type="text"
-            value={project}
+            value={project_title}
             onChange={this.inputChange} />
         </label><br />
         <lablel>
           Описание проекта:<br />
           <textarea
-            name="disc"
-            value={disc}
+            name="description"
+            value={description}
             onChange={this.inputChange} />
         </lablel><br />
         <label>
@@ -67,12 +72,6 @@ class AddForm extends Component {
             type="text"
             value={link}
             onChange={this.inputChange} />
-        </label><br />
-        <label style={{width: '200px'}}>
-          Загрузить изображение<br />
-          <input
-            type="file"
-            ref={this.fileInput} />
         </label><br />
         <button
           type="submit"
@@ -94,6 +93,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     add: (newProject) => {
       dispatch(addProject(newProject))
+    },
+    sendToJSONserver: (formData) => {
+      dispatch(sendProject(formData))
     }
   }
 }
