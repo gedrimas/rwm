@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import ModalForm from './ModalForm'
 import ProjectBlock from './ProjectBlock'
 import { generalFetch } from '../actions'
+import Pagination from './Pagination'
 
 const MainWrapper = styled.div`
 display: flex;
@@ -21,7 +22,8 @@ class MainPage extends Component {
 
   state = {
     isModalFormShow: false,
-    posts: []
+    paginationChunck: [],
+    isPaginationClicked: false
   }
 
   componentDidMount() {
@@ -35,10 +37,30 @@ class MainPage extends Component {
     })
   }
 
-  render() {
-    const { isModalFormShow, posts } = this.state
+  getPaginationChunck = (pages) => {
     const { projects } = this.props
-    return(
+    const start = pages*3 - 3
+    const end = pages*3 
+    console.log('start', start)
+    console.log('end', end)
+
+    const chunck = projects.slice(start, end)
+    console.log('chuncks', chunck)
+    console.log('pages', pages)    
+    console.log('projects', projects)
+    this.setState({
+      paginationChunck: chunck,
+      isPaginationClicked: true
+    })    
+
+  }
+
+  render() {
+    const { isModalFormShow, paginationChunck, isPaginationClicked } = this.state
+    const { projects } = this.props
+    //const projectsToShow = isPaginationClicked ? paginationChunck : projects.slice(0, 3)
+
+    return (
         <MainWrapper>
             <AddButton
             onClick={this.showModalForm}
@@ -48,11 +70,17 @@ class MainPage extends Component {
             {
               isModalFormShow && <ModalForm />
             }
-            <h1>{posts}</h1>
-              {
-                projects &&
-                <ProjectBlock projects={projects} />
-              }
+            {
+              projects &&
+              <ProjectBlock projects={isPaginationClicked ? paginationChunck : projects.slice(0, 3)} />
+            }
+            {
+              projects &&
+              <Pagination 
+                allProjects={projects} 
+                getPaginationChunck={this.getPaginationChunck} 
+              />
+            }  
         </MainWrapper>
     )
   }
