@@ -3,14 +3,13 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import ModalForm from './ModalForm'
 import ProjectBlock from './ProjectBlock'
-import { generalFetch } from '../actions'
+import { generalFetch, formEdititng, formShow } from '../actions'
 import Pagination from './Pagination'
 
 const MainWrapper = styled.div`
 display: flex;
 align-items: center;
 flex-direction: column;
-color: red;
 `
 const AddButton = styled.button`
 color: blue;
@@ -21,7 +20,6 @@ width: 100px;
 class MainPage extends Component {
 
   state = {
-    isModalFormShow: false,
     paginationChunck: [],
     isPaginationClicked: false
   }
@@ -32,32 +30,32 @@ class MainPage extends Component {
   }
   
   showModalForm = () => {
-    this.setState({
-      isModalFormShow: !this.state.isModalFormShow
-    })
+    const { formEdititng, formShow } = this.props
+    //formEdititng(false)
+    formShow(true)
   }
 
   getPaginationChunck = (pages) => {
     const { projects } = this.props
     const start = pages*3 - 3
     const end = pages*3 
-    console.log('start', start)
-    console.log('end', end)
-
     const chunck = projects.slice(start, end)
-    console.log('chuncks', chunck)
-    console.log('pages', pages)    
-    console.log('projects', projects)
+
     this.setState({
       paginationChunck: chunck,
       isPaginationClicked: true
     })    
+  }
 
+  getEditForm = (editingProject) => {
+    const { formEdititng } = this.props
+    formEdititng(true)
+    this.showModalForm()
   }
 
   render() {
-    const { isModalFormShow, paginationChunck, isPaginationClicked } = this.state
-    const { projects } = this.props
+    const { paginationChunck, isPaginationClicked } = this.state
+    const { projects, isFormShown } = this.props
     //const projectsToShow = isPaginationClicked ? paginationChunck : projects.slice(0, 3)
 
     return (
@@ -68,11 +66,14 @@ class MainPage extends Component {
               Добавить прект
             </AddButton>
             {
-              isModalFormShow && <ModalForm />
+              isFormShown && <ModalForm />
             }
             {
               projects &&
-              <ProjectBlock projects={isPaginationClicked ? paginationChunck : projects.slice(0, 3)} />
+              <ProjectBlock 
+                projects={isPaginationClicked ? paginationChunck : projects.slice(0, 3)}
+                edit={() => this.getEditForm(true)} 
+              />
             }
             {
               projects &&
@@ -88,13 +89,16 @@ class MainPage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    projects: state
+    projects: state.projects,
+    isFormShown: state.isFormShown
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getData: () => dispatch(generalFetch())
+    getData: () => dispatch(generalFetch()),
+    formEdititng: (edit) => dispatch(formEdititng(edit)),
+    formShow: (show) => dispatch(formShow(show))
   }
 }
 

@@ -48,6 +48,7 @@ class AddForm extends Component {
       description,
       link,
     } = this.state
+ 
     return (
       <StyledForm onSubmit={this.submit}>
         <label>
@@ -85,7 +86,7 @@ class AddForm extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    prostate: state
+    isEdit: state.isEdit
   }
 }
 

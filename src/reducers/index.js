@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux'
+
 const projects = (state = [], action) => {
   switch(action.type) {
     case 'ADD_PROJECT':
@@ -13,9 +15,33 @@ const projects = (state = [], action) => {
     case 'FETCH_ALL':
       return [
         ...state, ...action.data
-      ]  
-    default: state  
+      ]    
+    default: return state  
   }
 }
 
-export default projects
+const isEdit = (isEditstate = false, action) => {
+  switch(action.type) {
+    case 'FORM_EDITING':
+    return isEditstate != action.edit
+
+    default: return isEditstate 
+  }
+}
+
+const isFormShown = (isShow = false, action) => {
+  switch(action.type) {
+    case 'SHOW_MODAL':
+    return isShow != action.show
+    
+    default: return isShow
+  }
+}
+
+const allProjects = combineReducers({
+  projects,
+  isEdit,
+  isFormShown
+})
+
+export default allProjects

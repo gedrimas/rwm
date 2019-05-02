@@ -40,3 +40,17 @@ export const getAllProjects = (data) => {
     data,
   }  
 }
+
+export const formEdititng = (edit) => {
+  return {
+    type: 'FORM_EDITING',
+    edit,
+  }
+}
+
+export const formShow = (show) => {
+  return {
+    type: 'SHOW_MODAL',
+    show,
+  }
+}

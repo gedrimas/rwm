@@ -1,21 +1,9 @@
 {
   "projects": [
     {
-      "project_title": "111",
-      "description": "222",
-      "link": "333",
-      "id": 2
-    },
-    {
-      "project_title": " first project",
-      "description": "description of project",
-      "link": "link",
-      "id": 3
-    },
-    {
-      "project_title": " second project",
-      "description": "description description ",
-      "link": "big link",
+      "project_title": "PUT",
+      "description": "PUT",
+      "link": "PUT",
       "id": 4
     },
     {
@@ -37,82 +25,28 @@
       "id": 7
     },
     {
-      "project_title": "333",
-      "description": "",
-      "link": "",
+      "project_title": "1",
+      "description": "1",
+      "link": "1",
       "id": 8
     },
     {
-      "project_title": "333",
-      "description": "",
-      "link": "",
+      "project_title": "2",
+      "description": "2",
+      "link": "2",
       "id": 9
     },
     {
-      "project_title": "eee",
-      "description": "eee",
-      "link": "eee",
+      "project_title": "33",
+      "description": "33",
+      "link": "33",
       "id": 10
     },
     {
-      "project_title": "eee",
-      "description": "eee",
-      "link": "eee",
+      "project_title": "12",
+      "description": "12",
+      "link": "12",
       "id": 11
-    },
-    {
-      "project_title": "eee",
-      "description": "eee",
-      "link": "eee",
-      "id": 12
-    },
-    {
-      "project_title": "iiiiiii",
-      "description": "iiiiiiiiii",
-      "link": "iiiiiiiiii",
-      "id": 13
-    },
-    {
-      "project_title": "9",
-      "description": "999",
-      "link": "9999",
-      "id": 14
-    },
-    {
-      "project_title": "10",
-      "description": "101010",
-      "link": "100000",
-      "id": 15
-    },
-    {
-      "project_title": "121212",
-      "description": "12",
-      "link": "12",
-      "id": 16
-    },
-    {
-      "project_title": "121212",
-      "description": "12",
-      "link": "12",
-      "id": 17
-    },
-    {
-      "project_title": "1212",
-      "description": "1212",
-      "link": "1212",
-      "id": 18
-    },
-    {
-      "project_title": "1212",
-      "description": "1212",
-      "link": "1212",
-      "id": 19
-    },
-    {
-      "project_title": "рнрн",
-      "description": "рнрнр",
-      "link": "нрнрнр",
-      "id": 20
     }
   ]
 }
