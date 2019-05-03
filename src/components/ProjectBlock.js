@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { formShow, formEdititng } from '../actions'
+import { formShow, formEdititng, choseProject } from '../actions'
 
 const StyledProjectBlock = styled.div`
 height: 100px;
@@ -40,11 +40,19 @@ position:fixed;
 
 class Block extends Component {
 
-  setEditingForm = () => {
-    console.log(this.props)
-    const{ formEdititng, formShow } = this.props
+  shouldComponentUpdate(){
+    const { projects, edit, formShow } = this.props
+
+    console.log('shouldComoponentUpdate', projects)
+    return true
+  }
+
+  setEditingForm = (id) => {
+    console.log('name of project', id)
+    const{ formEdititng, formShow, choseProject } = this.props
     formShow(true)
     formEdititng(true)
+    choseProject(id)
   }
   
   render() {
@@ -55,7 +63,7 @@ class Block extends Component {
         {itm.project_title}
         </h3>
         <StyledControlWrapper>
-          <StyledPencil onClick={this.setEditingForm}/>
+          <StyledPencil onClick={() => this.setEditingForm(itm.id)}/>
           <StyledTrash />
         </StyledControlWrapper>
       </StyledProjectBlock>)
@@ -72,14 +80,15 @@ class Block extends Component {
 
 const mapStateToProps = (state) => {
   return{
-    pro: state.projects
+    actualPropjects: state.projects
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     formShow: (show) => dispatch(formShow(show)),
-    formEdititng: (edit) => dispatch(formEdititng(edit))
+    formEdititng: (edit) => dispatch(formEdititng(edit)),
+    choseProject: (id) => dispatch(choseProject(id))
   }
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { addProject, sendProject } from '../actions'
+import { addProject, sendProject, editProject, generalFetch } from '../actions'
 
 const StyledForm = styled.form`
 display: flex;
@@ -23,23 +23,21 @@ class AddForm extends Component {
   }
 
   submit = (e) => {
-    const { add, sendToJSONserver } = this.props
+    const { sendToJSONserver, editProject, isEdit, editingProjectId, generalFetch } = this.props
 
-    e.preventDefault()
-    //add(this.state)
-    const formElemnt = document.querySelector('form')
-    const formData = new FormData(formElemnt)
-    
-   
-    let object = {};
-    formData.forEach((value, key) => {object[key] = value});
-    const jsonFromData = JSON.stringify(object);
-    sendToJSONserver(jsonFromData)
-
-  }
-
-  getstate = () => {
-    const { prostate } = this.props
+  e.preventDefault()
+  const formElemnt = document.querySelector('form')
+  const formData = new FormData(formElemnt)
+  let object = {};
+  formData.forEach((value, key) => {object[key] = value});
+  const jsonFromData = JSON.stringify(object);
+    if(!isEdit){ 
+      sendToJSONserver(jsonFromData)
+      setTimeout(() => generalFetch(), 3000)      
+    }else {
+      editProject(jsonFromData, editingProjectId)
+      setTimeout(() => generalFetch(), 3000)
+    }
   }
 
   render() {
@@ -48,36 +46,37 @@ class AddForm extends Component {
       description,
       link,
     } = this.state
+
+    const { isEdit } = this.props
  
     return (
-      <StyledForm onSubmit={this.submit}>
-        <label>
-          Название проекта:<br />
-          <input
-            name="project_title"
-            type="text"
-            value={project_title}
-            onChange={this.inputChange} />
-        </label><br />
-        <lablel>
-          Описание проекта:<br />
-          <textarea
-            name="description"
-            value={description}
-            onChange={this.inputChange} />
-        </lablel><br />
-        <label>
-          Ссылка на проект:<br />
-          <input
-            name="link"
-            type="text"
-            value={link}
-            onChange={this.inputChange} />
-        </label><br />
+      <StyledForm onSubmit={this.submit}>    
+        Название проекта:<br />
+        <input
+          name="project_title"
+          type="text"
+          value={project_title}
+          onChange={this.inputChange} />
+        <br />
+        Описание проекта:<br />
+        <textarea
+          name="description"
+          value={description}
+          onChange={this.inputChange} />
+        <br />
+        Ссылка на проект:<br />
+        <input
+          name="link"
+          type="text"
+          value={link}
+          onChange={this.inputChange} />
+        <br />
         <button
           type="submit"
         >
-          Добавить
+        {
+          isEdit ? ( <span>Сохранить изменения</span> ) : ( <span>Добавить</span> )
+        }
         </button>
       </StyledForm>
     )
@@ -86,7 +85,8 @@ class AddForm extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isEdit: state.isEdit
+    isEdit: state.isEdit,
+    editingProjectId: state.editingProjectId
   }
 }
 
@@ -97,7 +97,13 @@ const mapDispatchToProps = (dispatch) => {
     },
     sendToJSONserver: (formData) => {
       dispatch(sendProject(formData))
-    }
+    },
+    editProject: (formData, id) => {
+      dispatch(editProject(formData, id))
+    },
+    generalFetch: () => {
+      dispatch(generalFetch())
+    }  
   }
 }
 

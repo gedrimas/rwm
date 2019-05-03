@@ -14,7 +14,7 @@ const projects = (state = [], action) => {
       ]
     case 'FETCH_ALL':
       return [
-        ...state, ...action.data
+         ...action.data
       ]    
     default: return state  
   }
@@ -38,10 +38,20 @@ const isFormShown = (isShow = false, action) => {
   }
 }
 
+const editingProjectId = (projectId = null, action) => {
+  switch(action.type) {
+    case 'CURRENT_PROJECT':
+    return projectId = action.id
+
+    default: return projectId
+  }
+}
+
 const allProjects = combineReducers({
   projects,
   isEdit,
-  isFormShown
+  isFormShown,
+  editingProjectId,
 })
 
 export default allProjects

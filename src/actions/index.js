@@ -10,7 +10,7 @@ export const addProject = ({ project_title, description, link, id }) => {
 }
 
 export const sendProject = (formData) => {
-  return function (dispatch) {  
+  return function () {  
     const JSheaders = new Headers();
     JSheaders.append("Content-Type", "application/json")
     fetch("http://localhost:3001/projects", {
@@ -20,6 +20,21 @@ export const sendProject = (formData) => {
     }).then(response => {
       if(response.ok) {
 
+      }
+    })
+  }  
+}
+
+export const editProject = (formData, id) => {
+  return function () {  
+    const JSheaders = new Headers();
+    JSheaders.append("Content-Type", "application/json")
+    fetch(`http://localhost:3001/projects/${id}`, {
+      headers: JSheaders,
+      method: "PUT",
+      body: formData
+    }).then(response => {
+      if(response.ok) {
       }
     })
   }  
@@ -52,5 +67,12 @@ export const formShow = (show) => {
   return {
     type: 'SHOW_MODAL',
     show,
+  }
+}
+
+export const choseProject = (id) => {
+  return {
+    type: 'CURRENT_PROJECT',
+    id,
   }
 }

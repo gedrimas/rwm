@@ -37,25 +37,26 @@ class MainPage extends Component {
 
   getPaginationChunck = (pages) => {
     const { projects } = this.props
-    const start = pages*3 - 3
-    const end = pages*3 
+    const start = pages*5 - 5
+    const end = pages*5 
     const chunck = projects.slice(start, end)
-
+    
     this.setState({
       paginationChunck: chunck,
       isPaginationClicked: true
     })    
   }
-
+  
   getEditForm = (editingProject) => {
     const { formEdititng } = this.props
     formEdititng(true)
     this.showModalForm()
   }
-
+  
   render() {
     const { paginationChunck, isPaginationClicked } = this.state
     const { projects, isFormShown } = this.props
+    console.log('MAIN', projects)
     //const projectsToShow = isPaginationClicked ? paginationChunck : projects.slice(0, 3)
 
     return (
@@ -71,7 +72,7 @@ class MainPage extends Component {
             {
               projects &&
               <ProjectBlock 
-                projects={isPaginationClicked ? paginationChunck : projects.slice(0, 3)}
+                projects={isPaginationClicked ? paginationChunck : projects.slice(0, 5)}
                 edit={() => this.getEditForm(true)} 
               />
             }
