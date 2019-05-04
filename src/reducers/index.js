@@ -47,11 +47,21 @@ const editingProjectId = (projectId = null, action) => {
   }
 }
 
+const paginationPage = (page = '', action) => {
+  switch(action.type) {
+    case 'PAGINATION_PAGE':
+    return page = action.page
+
+    default: return page
+  }
+}
+
 const allProjects = combineReducers({
   projects,
   isEdit,
   isFormShown,
   editingProjectId,
+  paginationPage,
 })
 
 export default allProjects

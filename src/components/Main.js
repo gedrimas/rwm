@@ -23,15 +23,28 @@ class MainPage extends Component {
     paginationChunck: [],
     isPaginationClicked: false
   }
-
+  
   componentDidMount() {
-    const { getData } = this.props
+    const { getData, paginationPage } = this.props
     getData()
+    if(paginationPage) {
+      console.log('timeout in MAIN')
+      setTimeout(this.getPaginationChunck(paginationPage), 1000)
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.projects !==  this.props.projects){
+      const { paginationPage } = this.props
+      if(paginationPage) {
+        console.log('timeout in MAIN')
+        setTimeout(this.getPaginationChunck(paginationPage), 1000)
+      }
+    }
   }
   
   showModalForm = () => {
     const { formEdititng, formShow } = this.props
-    //formEdititng(false)
     formShow(true)
   }
 
@@ -55,9 +68,7 @@ class MainPage extends Component {
   
   render() {
     const { paginationChunck, isPaginationClicked } = this.state
-    const { projects, isFormShown } = this.props
-    console.log('MAIN', projects)
-    //const projectsToShow = isPaginationClicked ? paginationChunck : projects.slice(0, 3)
+    const { projects, isFormShown, paginationPage } = this.props
 
     return (
         <MainWrapper>
@@ -91,7 +102,8 @@ class MainPage extends Component {
 const mapStateToProps = (state) => {
   return {
     projects: state.projects,
-    isFormShown: state.isFormShown
+    isFormShown: state.isFormShown,
+    paginationPage: state.paginationPage
   }
 }
 

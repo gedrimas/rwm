@@ -40,15 +40,7 @@ position:fixed;
 
 class Block extends Component {
 
-  shouldComponentUpdate(){
-    const { projects, edit, formShow } = this.props
-
-    console.log('shouldComoponentUpdate', projects)
-    return true
-  }
-
   setEditingForm = (id) => {
-    console.log('name of project', id)
     const{ formEdititng, formShow, choseProject } = this.props
     formShow(true)
     formEdititng(true)

@@ -76,3 +76,10 @@ export const choseProject = (id) => {
     id,
   }
 }
+
+export const selectPage = (page) => {
+  return {
+    type: 'PAGINATION_PAGE',
+    page,
+  }
+}
