@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { formShow, formEdititng, choseProject } from '../actions'
+import { withRouter } from 'react-router-dom'
+import { formShow, formEdititng, choseProject, deleteProject, generalFetch } from '../actions'
 
 const StyledProjectBlock = styled.div`
 height: 100px;
@@ -46,17 +47,29 @@ class Block extends Component {
     formEdititng(true)
     choseProject(id)
   }
+
+  deleting = (id) => {
+    const { deleteProject, getData } = this.props
+    deleteProject(id)
+    setTimeout(()=>{
+      getData()
+    }, 500)
+  }
+
   
   render() {
-    const { projects, edit, formShow } = this.props
+    const { projects, history } = this.props
     const allProjects = projects.map((itm, index) => 
-      <StyledProjectBlock key={index}>
+      <StyledProjectBlock 
+        key={index}
+        onClick={() => history.push('/' + itm.id)}
+      >
         <h3 style={{alignSelf:'center', marginLeft: '10px'}}> Проект: <br />
         {itm.project_title}
         </h3>
         <StyledControlWrapper>
           <StyledPencil onClick={() => this.setEditingForm(itm.id)}/>
-          <StyledTrash />
+          <StyledTrash onClick={() => this.deleting(itm.id)}/>
         </StyledControlWrapper>
       </StyledProjectBlock>)
       return (
@@ -80,10 +93,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     formShow: (show) => dispatch(formShow(show)),
     formEdititng: (edit) => dispatch(formEdititng(edit)),
-    choseProject: (id) => dispatch(choseProject(id))
+    choseProject: (id) => dispatch(choseProject(id)),
+    deleteProject: (id) => dispatch(deleteProject(id)),
+    getData: () => dispatch(generalFetch()),
   }
 }
 
 const ProjectBlock = connect(mapStateToProps, mapDispatchToProps)(Block)
 
-export default ProjectBlock
+export default withRouter(ProjectBlock)

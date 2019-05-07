@@ -28,8 +28,7 @@ class MainPage extends Component {
     const { getData, paginationPage } = this.props
     getData()
     if(paginationPage) {
-      console.log('timeout in MAIN')
-      setTimeout(this.getPaginationChunck(paginationPage), 1000)
+      setTimeout(this.getPaginationChunck(paginationPage), 500)
     }
   }
 
@@ -37,14 +36,13 @@ class MainPage extends Component {
     if(prevProps.projects !==  this.props.projects){
       const { paginationPage } = this.props
       if(paginationPage) {
-        console.log('timeout in MAIN')
-        setTimeout(this.getPaginationChunck(paginationPage), 1000)
+        setTimeout(this.getPaginationChunck(paginationPage), 500)
       }
     }
   }
   
   showModalForm = () => {
-    const { formEdititng, formShow } = this.props
+    const { formShow } = this.props
     formShow(true)
   }
 

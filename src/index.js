@@ -5,6 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import App from './App'
+import { BrowserRouter } from 'react-router-dom'
 import allProjects from './reducers'
 
 
@@ -16,7 +17,9 @@ let store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>, 
   document.getElementById('root')
 )

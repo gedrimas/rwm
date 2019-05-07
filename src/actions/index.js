@@ -40,6 +40,20 @@ export const editProject = (formData, id) => {
   }  
 }
 
+export const deleteProject = (id) => {
+  return function () {  
+    const JSheaders = new Headers();
+    JSheaders.append("Content-Type", "application/json")
+    fetch(`http://localhost:3001/projects/${id}`, {
+      headers: JSheaders,
+      method: "DELETE",
+    }).then(response => {
+      if(response.ok) {
+      }
+    })
+  }  
+}
+
 export function generalFetch(){
   return function (dispatch){ 
     let url = "http://localhost:3001/projects"
