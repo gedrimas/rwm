@@ -17,10 +17,11 @@ align-items: center;
 const ModalWindow = styled.div`
 margin-top: 100px;
 padding: 40px;
-border: outset;
+border: 5px solid #A1B700;
+border-radius: 5px;
 width: 300px;
 height: 300px;
-background-color: #B9EB00;
+background-color: #FFF100;
 position: absolute;
 color: black;
 display: flex;
@@ -30,9 +31,9 @@ justify-content: flex-end;
 z-index: 200;
 `
 const StyledCancel = styled.div`
-width: 32px;
-height:32px;
-background-image:url('./src/accessories/icons/cancel32.png');
+width: 24px;
+height: 24px;
+background-image:url('./src/accessories/icons/close.png');
 margin-right: 35px;
 :hover {
   cursor: pointer;

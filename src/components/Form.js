@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { addProject, sendProject, editProject, generalFetch } from '../actions'
+import { addProject, sendProject, editProject, generalFetch, formShow } from '../actions'
 
 const StyledForm = styled.form`
 display: flex;
@@ -23,7 +23,13 @@ class AddForm extends Component {
   }
 
   submit = (e) => {
-    const { sendToJSONserver, editProject, isEdit, editingProjectId, generalFetch } = this.props
+    const { sendToJSONserver, 
+      editProject, 
+      isEdit, 
+      editingProjectId, 
+      generalFetch,
+      formShow 
+    } = this.props
 
   e.preventDefault()
   const formElemnt = document.querySelector('form')
@@ -38,6 +44,7 @@ class AddForm extends Component {
       editProject(jsonFromData, editingProjectId)
       setTimeout(() => generalFetch(), 3000)
     }
+    formShow(true)
   }
 
   render() {
@@ -103,7 +110,8 @@ const mapDispatchToProps = (dispatch) => {
     },
     generalFetch: () => {
       dispatch(generalFetch())
-    }  
+    },
+    formShow: (show) => dispatch(formShow(show)) 
   }
 }
 

@@ -13,7 +13,7 @@ export const sendProject = (formData) => {
   return function () {  
     const JSheaders = new Headers();
     JSheaders.append("Content-Type", "application/json")
-    fetch("http://localhost:3001/projects", {
+    fetch("http://localhost:3000/projects", {
       headers: JSheaders,
       method: "POST",
       body: formData
@@ -29,7 +29,7 @@ export const editProject = (formData, id) => {
   return function () {  
     const JSheaders = new Headers();
     JSheaders.append("Content-Type", "application/json")
-    fetch(`http://localhost:3001/projects/${id}`, {
+    fetch(`http://localhost:3000/projects/${id}`, {
       headers: JSheaders,
       method: "PUT",
       body: formData
@@ -44,7 +44,7 @@ export const deleteProject = (id) => {
   return function () {  
     const JSheaders = new Headers();
     JSheaders.append("Content-Type", "application/json")
-    fetch(`http://localhost:3001/projects/${id}`, {
+    fetch(`http://localhost:3000/projects/${id}`, {
       headers: JSheaders,
       method: "DELETE",
     }).then(response => {
@@ -56,7 +56,7 @@ export const deleteProject = (id) => {
 
 export function generalFetch(){
   return function (dispatch){ 
-    let url = "http://localhost:3001/projects"
+    let url = "http://localhost:3000/projects"
       fetch(url)
         .then(resp => resp.json())
         .then(data => dispatch(getAllProjects(data)))

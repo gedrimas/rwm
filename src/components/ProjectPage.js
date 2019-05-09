@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
+import Linkify from 'react-linkify'
 
 const StyledProjectPage = styled.div`
   display: flex;
@@ -34,7 +35,7 @@ class Project extends Component {
         <>
           <h1>{choesenProject.project_title}</h1><hr /><br />
           <p>{choesenProject.description}</p><br />
-          <p>ссылка</p><br />
+          <Linkify>{choesenProject.link}</Linkify><br />
         </>  
         }
       </StyledProjectPage>

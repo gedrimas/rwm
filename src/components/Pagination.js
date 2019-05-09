@@ -24,7 +24,6 @@ class PaginationPages extends Component {
 
     return (
       <div>
-        <h1>pagination</h1>
         <div>{paginationItems}</div>
         <div />      
       </div>

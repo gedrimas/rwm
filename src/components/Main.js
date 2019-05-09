@@ -5,16 +5,24 @@ import ModalForm from './ModalForm'
 import ProjectBlock from './ProjectBlock'
 import { generalFetch, formEdititng, formShow } from '../actions'
 import Pagination from './Pagination'
-
+//https://paletton.com/#uid=3510u0kT4GTqpQmBXS6T6sESRma
 const MainWrapper = styled.div`
 display: flex;
 align-items: center;
 flex-direction: column;
+background-color: #D300A5;
 `
-const AddButton = styled.button`
-color: blue;
-margin: 30px 0;
-width: 100px;
+const AddButton = styled.div`
+margin: 10px 0;
+width: 32px;
+height: 32px;
+background-image:url('./src/accessories/icons/add32.png');
+box-shadow: 0 0 10px white;
+border-radius: 25px;
+background-color: #4CE900;
+:hover {
+  cursor: pointer;
+  box-shadow: 0 0 10px #800064;
 `
 
 class MainPage extends Component {
@@ -72,9 +80,7 @@ class MainPage extends Component {
         <MainWrapper>
             <AddButton
             onClick={this.showModalForm}
-            >
-              Добавить прект
-            </AddButton>
+            />
             {
               isFormShown && <ModalForm />
             }

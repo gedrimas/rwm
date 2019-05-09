@@ -7,10 +7,15 @@ import { formShow, formEdititng, choseProject, deleteProject, generalFetch } fro
 const StyledProjectBlock = styled.div`
 height: 100px;
 width: 700px;
-background: #F6A300;
+background-color: #4CE900;
 margin: 10px;
 display:flex;
 justify-content: space-between;
+border-radius: 5px;
+:hover {
+  box-shadow: 0 0 10px #800064;
+  cursor: pointer;
+ }
 `
 const StyledControlWrapper = styled.div`
 display: flex;
@@ -19,37 +24,40 @@ margin: 10px;
 `
 
 const StyledPencil = styled.div`
-width: 32px;
-height:32px;
-background-image:url('./src/accessories/icons/pencil32.png');
-margin-right: 35px;
+width: 24px;
+height: 24px;
+background-image:url('./src/accessories/icons/edit.png');
+margin-right: 5px;
 :hover {
   cursor: pointer;
-  
+  border-radius: 25px;
+  box-shadow: 0 0 10px #329900; 
 `
 
 const StyledTrash = styled.div`
-width: 32px;
-height:32px;
-background-image:url('./src/accessories/icons/trash32.png');
-position:fixed;
+width: 24px;
+height: 24px;
+background-image:url('./src/accessories/icons/remove.png');
 :hover {
   cursor: pointer;
-  
+  border-radius: 25px;
+  box-shadow: 0 0 10px #329900;
 }
 `
 
 class Block extends Component {
 
-  setEditingForm = (id) => {
+  setEditingForm = (id, e) => {
     const{ formEdititng, formShow, choseProject } = this.props
+    e.stopPropagation()
     formShow(true)
     formEdititng(true)
     choseProject(id)
   }
 
-  deleting = (id) => {
+  deleting = (id, e) => {
     const { deleteProject, getData } = this.props
+    e.stopPropagation()
     deleteProject(id)
     setTimeout(()=>{
       getData()
@@ -68,8 +76,8 @@ class Block extends Component {
         {itm.project_title}
         </h3>
         <StyledControlWrapper>
-          <StyledPencil onClick={() => this.setEditingForm(itm.id)}/>
-          <StyledTrash onClick={() => this.deleting(itm.id)}/>
+          <StyledPencil onClick={(e) => this.setEditingForm(itm.id, e)}/>
+          <StyledTrash onClick={(e) => this.deleting(itm.id, e)}/>
         </StyledControlWrapper>
       </StyledProjectBlock>)
       return (
