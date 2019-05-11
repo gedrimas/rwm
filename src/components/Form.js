@@ -7,6 +7,15 @@ const StyledForm = styled.form`
 display: flex;
 flex-direction: column;
 align-items: center;
+font-family: 'Montserrat Alternates', sans-serif;
+`
+const StyledSubmit = styled.button`
+border-radius: 2px;
+background-color: #FFF100;
+:hover {
+  cursor: pointer;
+  box-shadow: 0 0 10px #A1B700;
+}
 `
 
 class AddForm extends Component {
@@ -53,38 +62,52 @@ class AddForm extends Component {
       description,
       link,
     } = this.state
-
+    
     const { isEdit } = this.props
  
+    const inputStyle = {
+      borderRadius: '2px',
+      border: '1px solid #A1B700',
+      resize: 'none' 
+    }
+
     return (
       <StyledForm onSubmit={this.submit}>    
-        Название проекта:<br />
+        Project name:<br />
         <input
           name="project_title"
           type="text"
           value={project_title}
-          onChange={this.inputChange} />
+          onChange={this.inputChange}
+          style={inputStyle}  
+        />
         <br />
-        Описание проекта:<br />
+        Project description:<br />
         <textarea
           name="description"
           value={description}
-          onChange={this.inputChange} />
+          onChange={this.inputChange}
+          style={inputStyle}
+          rows="6"
+          cols="30"
+        />
         <br />
-        Ссылка на проект:<br />
+        Link to the project:<br />
         <input
           name="link"
           type="text"
           value={link}
-          onChange={this.inputChange} />
+          onChange={this.inputChange}
+          style={inputStyle}
+        />
         <br />
-        <button
+        <StyledSubmit
           type="submit"
         >
         {
-          isEdit ? ( <span>Сохранить изменения</span> ) : ( <span>Добавить</span> )
+          isEdit ? ( <span style={{fontSize: '16px'}}>Save change</span> ) : ( <span style={{fontSize: '16px'}}>Add</span> )
         }
-        </button>
+        </StyledSubmit>
       </StyledForm>
     )
   }

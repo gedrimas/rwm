@@ -44,6 +44,16 @@ background-image:url('./src/accessories/icons/remove.png');
   box-shadow: 0 0 10px #329900;
 }
 `
+const BlockTitle = styled.h3`
+  align-self: center; 
+  margin-left: 10px;
+  color: #2506CE;
+  font-family: 'Seymour One', sans-serif;
+`
+const BlockName = styled.span`
+  color: #D300A5; 
+  font-family: 'Montserrat Alternates', sans-serif;
+`
 
 class Block extends Component {
 
@@ -72,9 +82,9 @@ class Block extends Component {
         key={index}
         onClick={() => history.push('/' + itm.id)}
       >
-        <h3 style={{alignSelf:'center', marginLeft: '10px'}}> Проект: <br />
-        {itm.project_title}
-        </h3>
+        <BlockTitle> Project: <br />
+          <BlockName>{itm.project_title}</BlockName>
+        </BlockTitle>
         <StyledControlWrapper>
           <StyledPencil onClick={(e) => this.setEditingForm(itm.id, e)}/>
           <StyledTrash onClick={(e) => this.deleting(itm.id, e)}/>

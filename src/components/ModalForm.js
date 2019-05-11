@@ -15,8 +15,6 @@ align-items: center;
 `
 
 const ModalWindow = styled.div`
-margin-top: 100px;
-padding: 40px;
 border: 5px solid #A1B700;
 border-radius: 5px;
 width: 300px;
@@ -26,18 +24,17 @@ position: absolute;
 color: black;
 display: flex;
 flex-direction: column;
-align-items: center;
-justify-content: flex-end;
+justify-content: center;
 z-index: 200;
 `
 const StyledCancel = styled.div`
 width: 24px;
 height: 24px;
 background-image:url('./src/accessories/icons/close.png');
-margin-right: 35px;
+margin-right: 15px;
+align-self: flex-end;
 :hover {
   cursor: pointer;
-  
 `
 
 class Modal extends Component {

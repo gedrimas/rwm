@@ -47,7 +47,7 @@ const editingProjectId = (projectId = null, action) => {
   }
 }
 
-const paginationPage = (page = '', action) => {
+const paginationPage = (page = 1, action) => {
   switch(action.type) {
     case 'PAGINATION_PAGE':
     return page = action.page

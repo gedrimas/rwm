@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { selectPage } from '../actions'
+import styled from 'styled-components'
+
 
 class PaginationPages extends Component {
-
+  
   handleClick = (e) => {
     const { getPaginationChunck, selectPage } = this.props
     e.preventDefault()
@@ -11,23 +13,37 @@ class PaginationPages extends Component {
     getPaginationChunck(itm)
     selectPage(itm)
   }
-
+  
   render() {
-    const { allProjects } = this.props
+    const { allProjects, paginationPage } = this.props
+    
+    const StyledPaginationItm = styled.a`
+    text-decoration: none;
+    margin: 0 5px;
+    color: #2506CE;
+    font-family: 'Seymour One', sans-serif;
+    color: ${props => props.page == paginationPage ? '#FFF100' : '#2506CE' }
+    `
+    
     const pages = Math.ceil(allProjects.length / 5)
     let paginationItems = []
     for(let i = 1; i <= pages; i++) {
       paginationItems.push(
-        <a href="#" onClick={this.handleClick} key={i}>{i}</a>
+        <StyledPaginationItm href="#" onClick={this.handleClick} key={i} page={i}>{i}</StyledPaginationItm>
       )
     }
 
     return (
       <div>
-        <div>{paginationItems}</div>
-        <div />      
+        <div>{paginationItems}</div>   
       </div>
     )
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    paginationPage: state.paginationPage
   }
 }
 
@@ -37,5 +53,5 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const Pagination = connect(null, mapDispatchToProps)(PaginationPages)
+const Pagination = connect(mapStateToProps, mapDispatchToProps)(PaginationPages)
 export default Pagination

@@ -11,6 +11,8 @@ display: flex;
 align-items: center;
 flex-direction: column;
 background-color: #D300A5;
+height: 100%;
+padding-top: 40px;
 `
 const AddButton = styled.div`
 margin: 10px 0;
